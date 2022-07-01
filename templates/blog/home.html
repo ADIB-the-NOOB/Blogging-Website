@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block body %}
+{% for post in posts %}
+<div class="post">
+    <h2>{{ post.title }}</h2>
+    <p>by {{ post.user }}</p>
+    <p>{{ post.category }}</p>
+    <p>{{ post.created_at }}</p>
+    <p>{{ post.body }}</p>
+    <img src="/media/{{post.Image}}" alt="">
+    <br>    
+{% endfor %}
+{% endblock body %}
+
