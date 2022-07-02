@@ -20,7 +20,7 @@ class Post(models.Model):
         PostCategory, on_delete=models.SET_NULL, null=True)
     created_at = models.DateField(auto_now_add=True)
     body = models.TextField()
-    Image = models.ImageField(default='default.jpg', upload_to='blogimg')
+    image = models.ImageField(default='default.jpg', upload_to='blogimg')
 
     def __str__(self):
         return self.title
@@ -32,10 +32,11 @@ class Post(models.Model):
         self.slug = slugify(self.title)
         super().save(*args, **kwargs)
         img = Image.open(self.image.path)
-        if img.height > 300 or img.width > 300:
-            output_size = (300, 300)
+        if img.height >= 2160 or img.width >= 3840:
+            output_size = (1920, 1080)
             img.thumbnail(output_size)
             img.save(self.image.path)
+        
 
 
 class Comment(models.Model):
